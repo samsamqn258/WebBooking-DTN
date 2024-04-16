@@ -1,0 +1,483 @@
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOOD BOOKING</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon"
+          sizes="180x180"
+          href="~/favicon/apple-touch-icon.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="~/favicon/favicon-32x32.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="~/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="~/favicon/site.webmanifest" />
+    <link rel="mask-icon"
+          href="~/favicon/safari-pinned-tab.svg"
+          color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="~/css/main.css" />
+
+    <!-- Scripts -->
+    <script src="~/js/scripts.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <div class="top-bar">
+        @if (User.Identity.IsAuthenticated)
+        {
+            string userType = User.FindFirst(ClaimTypes.Role)?.Value;
+            string userName = User.Identity.Name;
+            if (userType == "2")
+            {
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/img/carousel-img-1.png" class="d-block w-100 " alt="..." style="height: 100vh; object-fit:cover;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/carousel-img-2.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/carousel-img-3.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/img/carousel-img-4.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+                <div class="header__inner">
+                    <!-- logo -->
+                    <a href="@Url.Action("Index", "Guest")" class="logo">
+                        <img src="/icons/logo.svg"
+                             alt="GOODBOOKING"
+                             class="logo__img" />
+                    </a>
+                    <!-- Navbar -->
+                    <nav class="nav">
+                        <ul class="nav-list">
+                            <li class="nav-item nav-item--active">
+                                <a href="#!" class="nav__link">Lưu trú</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav__link">Khuyến mãi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#!" class="nav__link">Địa điểm</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/dang-xuat-nguoidung" class="nav__link">Đăng chỗ nghỉ</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Controls -->
+                    <div class="controls">
+                        <!-- User -->
+                        <div class="top-act__user">
+                            <div class="user-menu__top">
+                                <img src="/img/header-user.jpg"
+                                     alt=""
+                                     class="user-menu__avatar" />
+                                <div>
+                                    <p class="user-menu__desc">Xin chào,</p>
+                                    <p class="user-menu__name">@userName</p>
+                                </div>
+                            </div>
+                            <!-- DropDown -->
+                            <div class="act-dropdown top-act__dropdown">
+                                <div class="act-dropdown__inner user-menu">
+                                    <ul class="user-menu__list">
+                                        <li>
+                                            <a href="/personal-information" class="user-menu__link">Thông tin cá nhân</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("ListYourBookingForm", "CreateBooking")" class="user-menu__link">Danh sách phòng đã đặt</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("ListYourCancelBookingForm", "CancelBooking")" class="user-menu__link">Danh sách phòng đã hủy</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("ListBill", "Payment")" class="user-menu__link">Danh sách hóa đơn</a>
+                                        </li>
+                                        <li>
+                                            <a href="/logout-guest" class="user-menu__link user-menu__separate">
+                                                Đăng Xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search">
+                    <h3 class="search__heading">Tìm chỗ nghỉ tiếp theo</h3>
+                    <form action="@Url.Action("AvailableHotels", "SearchHotel")" method="get" id="searchForm" class="search__form">
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <div class="text text-danger" role="alert">
+                                @ViewBag.ErrorMessage
+                            </div>
+                        }
+
+                        <div class="search__row">
+                            <!-- Col-1 -->
+                            <div class="search__form-text-input search__form-text-input--large">
+                                <img src="/icons/map.svg"
+                                     alt=""
+                                     class="search__form-icons" />
+                                <input class="search-input"
+                                       type="text"
+                                       name="location"
+                                       id="location"
+                                       placeholder="Bạn muốn đến đâu"
+                                       required/>
+                            </div>
+                            <!-- Col-2 -->
+                            <div class="search__form-text-input">
+                                <input class="search-input"
+                                       type="date"
+                                       name="fromDate"
+                                       id="fromDate"
+                                       onfocus="(this.type='date')"
+                                       onblur="(this.type='text')"
+                                       placeholder="Ngày nhận phòng" 
+                                       required/>
+                            </div>
+
+                            <!-- Col-3 -->
+                            <div class="search__form-text-input">
+
+                                <input class="search-input"
+                                       type="date"
+                                       name="toDate"
+                                       id="toDate"
+                                       onfocus="(this.type='date')"
+                                       onblur="(this.type='text')"
+                                       placeholder="Ngày trả phòng"
+                                       required/>
+                            </div>
+
+                            <!-- Col-4 -->
+                            <div class="search__form-text-input search__form-text-input--small">
+                                <img src="/icons/user.svg"
+                                     alt=""
+                                     class="search__form-icons" />
+                                <input class="search-input"
+                                       type="text"
+                                       name="numberOfGuests"
+                                       id="numberOfGuests"
+                                       placeholder="Số người" 
+                                       required/>
+                            </div>
+                            <!-- Col-4 -->
+                            <button class="btn-custom search__submit">Tìm kiếm</button>
+                        </div>
+                    </form>
+                </div>
+            }
+        }
+        else
+        {
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/img/carousel-img-1.png" class="d-block w-100 " alt="..." style="height: 100vh; object-fit:cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/carousel-img-2.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/carousel-img-3.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/img/carousel-img-4.jpg" class="d-block w-100" alt="..." style="height: 100vh; object-fit:cover;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
+            <div class="header__inner">
+                <!-- logo -->
+                <a href="@Url.Action("Index", "Guest")" class="logo">
+                    <img src="/icons/logo.svg"
+                         alt="GOODBOOKING"
+                         class="logo__img" />
+                </a>
+                <!-- Navbar -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item nav-item--active">
+                            <a href="#!" class="nav__link">Lưu trú</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#!" class="nav__link">Khuyến mãi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#!" class="nav__link">Địa điểm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/hotel-registration" class="nav__link">Đăng chỗ nghỉ</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Controls -->
+                <div class="controls">
+                    <a href="@Url.Action("RegisterGuest","AccountGuest")" class="controls__sign-up btn-custom">Đăng kí</a>
+                    <a href="@Url.Action("LoginGuest","AccountGuest")" class="controls__sign-in btn-custom">Đăng nhập</a>
+                </div>
+            </div>
+            <div class="search">
+                <h3 class="search__heading">Tìm chỗ nghỉ tiếp theo</h3>
+                <form action="@Url.Action("AvailableHotels", "SearchHotel")" method="get" id="searchForm" class="search__form">
+                    <div class="search__row">
+                        <!-- Col-1 -->
+                        <div class="search__form-text-input search__form-text-input--large">
+                            <img src="/icons/map.svg"
+                                 alt=""
+                                 class="search__form-icons" />
+                            <input class="search-input"
+                                   type="text"
+                                   name="location"
+                                   id="location"
+                                   placeholder="Bạn muốn đến đâu" />
+                        </div>
+                        <!-- Col-2 -->
+                        <div class="search__form-text-input">
+                            <input class="search-input"
+                                   type="date"
+                                   name="fromDate"
+                                   id="fromDate"
+                                   onfocus="(this.type='date')"
+                                   onblur="(this.type='text')"
+                                   placeholder="Ngày nhận phòng" />
+                        </div>
+
+                        <!-- Col-3 -->
+                        <div class="search__form-text-input">
+
+                            <input class="search-input"
+                                   type="date"
+                                   name="toDate"
+                                   id="toDate"
+                                   onfocus="(this.type='date')"
+                                   onblur="(this.type='text')"
+                                   placeholder="Ngày trả phòng" />
+                        </div>
+
+                        <!-- Col-4 -->
+                        <div class="search__form-text-input search__form-text-input--small">
+                            <img src="/icons/user.svg"
+                                 alt=""
+                                 class="search__form-icons" />
+                            <input class="search-input"
+                                   type="text"
+                                   name="numberOfGuests"
+                                   id="numberOfGuests"
+                                   placeholder="Số người" />
+                        </div>
+                        <!-- Col-4 -->
+                        <button class="btn-custom search__submit">Tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+        }
+      
+    </div>
+
+    @RenderBody()
+    <div class="footer__inner">
+                <div class="footer__row">
+                    <!-- col-1 -->
+                    <div class="footer__col">
+                <a href="@Url.Action("Index","Guest")" class="logo">
+                            <img src="/icons/logo.svg"
+                                 alt="GOODBOOKING"
+                                 class="logo__img" />
+                        </a>
+                        <p class="footer__copyright">
+                            Copyrights MiCasa Homes and Properties All rights reserved.
+
+                        </p>
+                        <div class="footer__social-wrap">
+                            <a href="#!">
+                                <img src="/icons/twitter.svg"
+                                     alt=""
+                                     class="footer__social-icon icon" />
+                            </a>
+                            <a href="#!">
+                                <img src="/icons/facebook.svg"
+                                     alt=""
+                                     class="footer__social-icon icon" />
+                            </a>
+                            <a href="#!">
+                                <img src="/icons/tiktok.svg"
+                                     alt=""
+                                     class="footer__social-icon icon" />
+                            </a>
+                            <a href="#!">
+                                <img src="/icons/youtube.svg"
+                                     alt=""
+                                     class="footer__social-icon icon" />
+                            </a>
+                        </div>
+                    </div>
+                    <!-- col-2 -->
+                    <div class="footer__col">
+                        <h3 class="footer__heading">Company</h3>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="#!" class="footer__link">About us</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Blog</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Contact us</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Pricing</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Testimonials</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- col-3 -->
+                    <div class="footer__col">
+                        <h3 class="footer__heading">Support</h3>
+                        <ul class="footer__list">
+                            <li>
+                                <a href="#!" class="footer__link">Help center</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Terms of service</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Legal</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Privacy policy</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="footer__link">Status</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- col-4 -->
+                    <div class="footer__col">
+                        <h3 class="footer__heading">Stay up to date</h3>
+                        <div class="form__group footer__form">
+                            <div class="form__text-input footer__text-input">
+                                <input type="email"
+                                       name=""
+                                       id=""
+                                       placeholder="Your email address"
+                                       value=""
+                                       class="form__input footer__input"
+                                       required />
+                                <a href="#!">
+                                    <img src="/icons/send.svg"
+                                         alt=""
+                                         class="form__input-icon" />
+                                </a>
+                            </div>
+                            <!--
+                            <p class="form__error">
+                                Email is not in correct format
+                            </p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var fromDateInput = document.getElementById("fromDate");
+            var toDateInput = document.getElementById("toDate");
+
+            // Không cho phép chọn các ngày trước ngày hiện tại
+            var today = new Date().toISOString().split('T')[0];
+            fromDateInput.setAttribute("min", today);
+            toDateInput.setAttribute("min", today);
+
+            // Ẩn các ngày trước ngày hiện tại
+            fromDateInput.addEventListener("input", function () {
+                toDateInput.setAttribute("min", this.value);
+            });
+
+            // Thêm 1 ngày nếu ngày nhận và ngày trả cùng một ngày
+            toDateInput.addEventListener("input", function () {
+                var fromDate = new Date(fromDateInput.value);
+                var toDate = new Date(this.value);
+                if (fromDate.getTime() === toDate.getTime()) {
+                    var nextDay = new Date(fromDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    toDateInput.value = nextDay.toISOString().split('T')[0];
+                }
+            });
+        });
+
+        // Lấy tất cả các thẻ li trong menu
+        const navItems = document.querySelectorAll('.nav-item');
+
+        // Lặp qua từng thẻ li và thêm sự kiện click
+        navItems.forEach(item => {
+            item.addEventListener('click', function () {
+                // Xóa class "nav-item--active" khỏi tất cả các thẻ li
+                navItems.forEach(navItem => {
+                    navItem.classList.remove('nav-item--active');
+                });
+
+                // Thêm class "nav-item--active" vào thẻ li đã được click
+                this.classList.add('nav-item--active');
+            });
+        });
+
+        $(document).ready(function () {
+            // Auto start carousel
+            $('.carousel').carousel({
+                interval: 3000, // Đổi 2000 thành thời gian muốn hiển thị mỗi ảnh (đơn vị là milliseconds)
+                wrap: true
+            });
+        });
+
+
+
+
+    </script>
+</body>
+</html>
+

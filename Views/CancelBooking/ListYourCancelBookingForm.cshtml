@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebBooking.Models.CancelBooking>
+@{
+    Layout = "~/Views/Shared/_Layout-guest.cshtml";
+}
+
+
+
+    <main class="product-cancel">
+        <div class="container">
+            <div class="product-cancel__inner">
+                <h1 class="product-cancel__heading">
+                    Danh sách phòng bạn đã hủy
+                </h1>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <div class="product-cancel__list">
+                            <div class="product-cancel__item">
+                                <div class="product-cancel__item-time">
+                                    <span> @Html.DisplayFor(modelItem => item.CancelTime)</span>
+                                </div>
+                                <!-- Product Item -->
+                                <article class="product__item product-cancel__item-wrap product-cancel__item-wrap--deleted">
+                                    <div class="product__row">
+                                        <img src="@item.Booking.Room.Image1"
+                                             alt=""
+                                             class="product__thumb product-cancel__thumb" />
+                                        <div>
+                                            <h3 class="product__heading product__heading--hover product-cancel__item-heading">
+                                                @item.Booking.Room.Hotel.HotelName
+                                            </h3>
+                                            <p class="product__address product-cancel__address">
+                                                @item.Booking.Room.Hotel.Address
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="product-cancel__heading mt-4" style="text-align:center">@ViewBag.NoBooking</p>
+                }
+
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ẩn đi carousel
+            document.getElementById("carouselExampleControls").style.display = "none";
+
+            // Ẩn đi phần tìm kiếm
+            document.querySelector(".search").style.display = "none";
+
+            document.querySelector(".header__inner").style.top = "26px";
+
+            document.querySelector(".footer__inner").style.marginTop = "0";
+
+        });
+    </script>
+

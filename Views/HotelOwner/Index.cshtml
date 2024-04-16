@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <main class="page-employer">
+        <div class="container">
+            <section class="page-employer__inner">
+                <div class="page-employer__left">
+                    <h1 class="page-employer__heading">
+                        Đăng căn hộ khách sạn nhà nghỉ dưỡng guest house nhà
+                        nghỉ B&B của Quý vị trên GOODBOOKING
+                    </h1>
+                    <p class="page-employer__desc">
+                        Dù kinh doanh chỗ nghỉ là công việc tay trái hay
+                        toàn thời gian, đừng quên đăng kí nhà nghỉ dưỡng
+                        trên GOODBOOKING để tiếp cận du khách khắp thế giới
+                    </p>
+                </div>
+                <div class="page-employer__right">
+                    <div class="page-employer__info-wrap">
+                        <p class="page-employer__info-title">
+                            Tăng thu nhập với lượng đơn đặt đều đặn
+                        </p>
+                        <div class="page-employer__info-list">
+                            <!-- Item - 1 -->
+                            <div class="page-employer__info-item">
+                                <img src="/icons/check.svg"
+                                     alt=""
+                                     class="page-employer__info-icon" />
+                                <span class="page-employer__info-sub-title">
+                                    45% đối tác nhận được đơn đặt đầu tiên
+                                    trong vòng 1 tuần
+                                </span>
+                            </div>
+                            <!-- Item - 2 -->
+                            <div class="page-employer__info-item">
+                                <img src="/icons/check.svg"
+                                     alt=""
+                                     class="page-employer__info-icon" />
+                                <span class="page-employer__info-sub-title">
+                                    Hơn 1,1 tỉ khách lưu trú tại nhà nghỉ
+                                    dưỡng từ năm 2010
+                                </span>
+                            </div>
+                            <!-- Item - 3 -->
+                            <div class="page-employer__info-item">
+                                <img src="/icons/check.svg"
+                                     alt=""
+                                     class="page-employer__info-icon" />
+                                <span class="page-employer__info-sub-title">
+                                    Toàn quyền kiểm soát chỗ nghỉ và tài
+                                    chính
+                                </span>
+                            </div>
+                            <!-- Item - 4 -->
+                            <div class="page-employer__info-item">
+                                <img src="/icons/check.svg"
+                                     alt=""
+                                     class="page-employer__info-icon" />
+                                <span class="page-employer__info-sub-title">
+                                    Đăng kí miễn phí và chỉ mất 15
+                                    phút
+                                </span>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("LoginHotelOwner","HotelOwner")" class="btn-custom page-employer__btn">
+                            Bắt đầu ngay
+                        </a>
+                        <p class="page-employer__info-desc">
+                            Quý vị đã bắt đầu quá trình đăng ký?
+                        </p>
+                        <a href="@Url.Action("RegisterHotelOwner","HotelOwner")" class="page-employer__link">
+                            Tiếp tục các bước đăng ký
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".header__inner").style.top = "26px";
+            document.querySelector(".footer__inner").style.marginTop = "0";
+        });
+    </script>
+</body>
+</html>

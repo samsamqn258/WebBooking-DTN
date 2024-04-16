@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOOD BOOKING - Product Detail</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="mask-icon"
+          href="/favicon/safari-pinned-tab.svg"
+          color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/main.css" />
+
+</head>
+<body>
+    <div class="container">
+        @if (ViewBag.message != null)
+        {
+            <div class="toast">
+                <div class="toast__inner">
+                    <div class="toast__wrap toast__wrap--success">
+                        <img src="/icons/check.svg"
+                             alt=""
+                             class="toast__img" />
+                    </div>
+                    <div class="toast__info">
+                        <h1 class="toast__heading toast__heading--success">
+                            @ViewBag.message
+                        </h1>
+
+                        <a href="/danh-sach-phong-da-dat"
+                           class="btn-custom toast__btn--success btn-custom__rounded">Go To Home</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>

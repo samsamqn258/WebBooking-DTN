@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebBooking.Models.Payment>
+
+@{
+    Layout = "/Views/Shared/_Layout-guest.cshtml";
+}
+ 
+    
+        <main class="product-cancel">
+            <div class="container">
+                <div class="product-cancel__inner">
+                    <h1 class="product-cancel__heading">
+                        Hóa đơn của bạn
+                    </h1>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <div class="product-cancel__list">
+                                <div class="product-cancel__item">
+                                
+                                    <!-- Product Item -->
+                                    <article class="product__item product-cancel__item-wrap">
+                                        <div class="product__row">
+                                            <img src="@item.Booking.Room.Image1"
+                                                 alt=""
+                                                 class="product__thumb product-cancel__thumb" />
+                                            <div>
+                                                <h3 class="product__heading product__heading--hover product-cancel__item-heading">
+
+                                                   @item.Booking.Room.Hotel.HotelName
+                                                </h3>
+                                                
+                                                <p class="product__address product-cancel__address">
+                                                    @item.Booking.Room.Hotel.Address
+                                                </p>
+
+                                                <span class="product__address product-cancel__address">
+                                                    @Html.DisplayFor(modelItem => item.PaymentType)
+                                                </span>
+                                                <span class="product__address product-cancel__address">
+                                                    @Html.DisplayFor(modelItem => item.Booking)
+                                                </span>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="product__sub-info">
+                                            <div class="product__price">
+                                                <strong class="product__price-detail">
+                                                    VND @Html.DisplayFor(modelItem => item.TotalPayment)
+                                                </strong>
+                                            </div>
+                                                <span class="product-cancel__status btn-custom product-cancel__status-btn">
+                                                  Thanh Toán Thành Công
+                                                </span>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                <p class="mt-4 product-cancel__heading" style="text-align:center">@ViewBag.NoBill</p>
+                    }
+
+                </div>
+            </div>
+        </main>
+    
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Ẩn đi carousel
+            document.getElementById("carouselExampleControls").style.display = "none";
+
+            // Ẩn đi phần tìm kiếm
+            document.querySelector(".search").style.display = "none";
+
+            document.querySelector(".header__inner").style.top = "26px";
+
+            document.querySelector(".footer__inner").style.marginTop = "0";
+
+        });
+    </script>

@@ -1,0 +1,236 @@
+﻿@model IEnumerable<WebBooking.Models.Room>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Phòng</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png" />
+    <link rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="mask-icon"
+          href="/favicon/safari-pinned-tab.svg"
+          color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="/fonts/stylesheet.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <!-- Scripts -->
+    <script src="/js/scripts.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous" />
+</head>
+<body>
+    <main class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <div class="product__form">
+                        <h3>Tìm kiếm phòng trống trong khách sạn</h3>
+                        <form asp-action="AvailableRoomsInHotel" method="get">
+                            <div class="mb-3">
+                                <label for="fromDate" class="form-label">Từ ngày:</label>
+                                <input type="date" class="form-control" id="fromDate" name="fromDate" value="@TempData["FromDate"]" required placeholder="Ngày nhận phòng">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="toDate" class="form-label">Đến ngày:</label>
+                                <input type="date" class="form-control" id="toDate" name="toDate" value="@TempData["ToDate"]" required placeholder="Ngày trả phòng">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="numberOfGuests" class="form-label">Số lượng khách:</label>
+                                <input type="number" class="form-control" id="numberOfGuests" name="numberOfGuests" value="@TempData["NumberOfGuests"]" min="1" required>
+                            </div>
+
+                            <input type="hidden" id="hotelId" name="hotelId" value="@TempData["hotelId"]">
+
+                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-10">
+                    @if (ViewBag.NoAvailableRoomsMessage != null)
+                    {
+                        <div class="alert alert-warning mt-3 d-flex align-content-center justify-content-center" role="alert">
+                            @ViewBag.NoAvailableRoomsMessage
+                        </div>
+                    }
+
+                    @if (ViewBag.NoGuest != null)
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            @ViewBag.NoGuest
+                        </div>
+                    }
+                    @if (ViewBag.NoPhong != null)
+                    {
+                        <div class="alert alert-danger mt-3" role="alert">
+                            @ViewBag.NoPhong
+                        </div>
+                    }
+
+                    @{
+                        // Tính số ngày thuê phòng
+                        var fromDate = DateTime.Parse(TempData["FromDate"].ToString());
+                        var toDate = DateTime.Parse(TempData["ToDate"].ToString());
+                        var numberOfDays = (toDate - fromDate).TotalDays;
+                    }
+
+                    @if (ViewBag.ShowResults)
+                    {
+                        @foreach (var item in Model)
+                        {
+
+
+                            // Tính giá dựa trên số ngày thuê phòng
+                            var priceEachNight = numberOfDays * item.PricePerNight;
+                            var totalPrice = priceEachNight - (priceEachNight * item.Discount / 100);
+
+                            <section class="product__inner product__detail">
+                                <div class="row">
+
+                                    <div class="col-8">
+
+                                        <div class="product__detail-wrap">
+
+                                            <h1 class="product__detail-heading">
+                                                @item.Hotel.HotelName
+                                            </h1>
+                                            <p class="product__detail-address">
+                                                <img src="/icons/location.svg"
+                                                     class="product__detail-address-icon"
+                                                     alt="" />
+                                                @item.Hotel.Address
+                                            </p>
+                                            <div class="product__detail-row">
+                                                <div class="product__detail-col">
+                                                    <img src="@item.Image2"
+                                                         alt=""
+                                                         class="product__detail-sub-img" />
+                                                    <img src="@item.Image3"
+                                                         alt=""
+                                                         class="product__detail-sub-img" />
+                                                </div>
+
+                                                <img src="@item.Image1"
+                                                     alt=""
+                                                     class="product__detail-main-img" />
+                                            </div>
+
+                                            <p class="product__detail-desc">
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="product-info">
+                                            <div class="product-info__utilities">
+                                                <p class="product-info__utilities-title">Các tiện nghi được ưa chuộng nhất</p>
+                                                <div class="product-info__utilities-wrap">
+                                                    <div class="product-info__utilities-row">
+                                                        <img src="/icons/ban-smoking.svg" alt="" class="product-info__utilities-icon">
+                                                        Phòng không hút thuốc
+                                                    </div>
+                                                    <div class="product-info__utilities-row">
+                                                        <img src="/icons/wifi.svg" alt="" class="product-info__utilities-icon">
+                                                        WiFi miễn phí
+                                                    </div>
+                                                    <div class="product-info__utilities-row">
+                                                        <img src="/icons/bell.svg" alt="" class="product-info__utilities-icon">
+                                                        Dịch vụ phòng
+                                                    </div>
+                                                    <div class="product-info__utilities-row">
+                                                        <img src="/icons/family.svg" alt="" class="product-info__utilities-icon">
+                                                        Phòng gia đình
+                                                    </div>
+                                                    <div class="product-info__utilities-row">
+                                                        <img src="/icons/temperature.svg" alt="" class="product-info__utilities-icon">
+                                                        Điều hòa nhiệt độ
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-info__card">
+                                                <div>
+
+                                                    <span class="product-info__card-price">VND @priceEachNight</span>
+                                                    <span class="product-info__card-tax">@Html.DisplayFor(modelItem => item.Discount)%</span>
+                                                </div>
+                                                <span class="product-info__card-total-price">VND @totalPrice</span>
+
+                                                @if (!User.Identity.IsAuthenticated)
+                                                {
+                                                    <a href="@Url.Action("LoginGuest","AccountGuest")" class="btn-custom product-info__card-btn" style="width: 100%">Vui Lòng Đăng Nhập</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("CreateNewBooking", "CreateBooking", new { roomId = item.RoomID, fromDate =  TempData["FromDate"], toDate = TempData["ToDate"]  })" class="btn-custom product-info__card-btn">Đặt Phòng</a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var fromDateInput = document.getElementById("fromDate");
+            var toDateInput = document.getElementById("toDate");
+
+            // Không cho phép chọn các ngày trước ngày hiện tại
+            var today = new Date().toISOString().split('T')[0];
+            fromDateInput.setAttribute("min", today);
+            toDateInput.setAttribute("min", today);
+
+            // Ẩn các ngày trước ngày hiện tại
+            fromDateInput.addEventListener("input", function () {
+                toDateInput.setAttribute("min", this.value);
+            });
+
+            // Thêm 1 ngày nếu ngày nhận và ngày trả cùng một ngày
+            toDateInput.addEventListener("input", function () {
+                var fromDate = new Date(fromDateInput.value);
+                var toDate = new Date(this.value);
+                if (fromDate.getTime() === toDate.getTime()) {
+                    var nextDay = new Date(fromDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    toDateInput.value = nextDay.toISOString().split('T')[0];
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>
