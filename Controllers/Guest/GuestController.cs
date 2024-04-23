@@ -3,6 +3,7 @@ using WebBooking.Data;
 using WebBooking.Data.I_Repository;
 using WebBooking.Models;
 
+
 namespace WebBooking.Controllers.Guest
 {
     public class GuestController : Controller
@@ -10,16 +11,24 @@ namespace WebBooking.Controllers.Guest
     
         private HotelI_Repository _hotelIRepository;
         private UserI_Repository _userIRepository;
-        public GuestController(HotelI_Repository hotelRepository, UserI_Repository guestRepository)
+        private AreaI_Repository _areaIRepository;
+        private HotelTypeI_Repository _hotelTypeIRepository;
+        public GuestController(HotelI_Repository hotelRepository, UserI_Repository guestRepository, AreaI_Repository areaIRepository, HotelTypeI_Repository hotelTypeIRepository)
         {
             _hotelIRepository = hotelRepository;
             _userIRepository = guestRepository;
-
+            _areaIRepository = areaIRepository;
+            _hotelTypeIRepository = hotelTypeIRepository;
         }
         public async Task<IActionResult> Index()
         {
-            var allHotels = await _hotelIRepository.GetAllAsync();
-            return View(allHotels);
+            var famousHotels = await _hotelIRepository.ListHotelFamous();
+            var famousAreas = await _areaIRepository.ListAreaFamous();
+            var hotelTypes = await _hotelTypeIRepository.GetAllListHotelType();
+            ViewBag.FamousHotels = famousHotels;
+            ViewBag.FamousAreas = famousAreas;
+            ViewBag.HotelTypes = hotelTypes;
+            return View();
         }
 
         public async Task<IActionResult> DisplayInfoGuest()

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using WebBooking.Data.I_Repository;
@@ -149,5 +150,69 @@ namespace WebBooking.Data.EF_Repository
 
         }
 
-    }
+        public async Task<IEnumerable<Hotel>> GetListHotelOwner(int hotelOwnerID)
+        {
+            return await _myData.Hotels
+              .Include(k => k.Area)
+              .Include(k => k.HotelType)
+              .Include(k => k.User)
+              .Where(k => k.UserID == hotelOwnerID).ToListAsync();
+        }
+        public async Task<Hotel> GetValueHotel(int hotelId)
+        {
+            return await _myData.Hotels
+               .Include(k => k.Area)
+               .Include(k => k.HotelType)
+               .Include(k => k.User)
+               .FirstOrDefaultAsync(m => m.HotelID == hotelId);
+        }
+
+        public async Task<Hotel> FindHotel(int hotelId)
+        {
+            return await _myData.Hotels.FirstOrDefaultAsync(m => m.HotelID == hotelId);
+        }
+
+        public async Task<IEnumerable<Hotel>> ListHotelFamous()
+        {
+            var famousHotels = await _myData.Hotels
+               .Join(_myData.Rooms, h => h.HotelID, r => r.HotelID, (h, r) => new { Hotel = h, Room = r })
+               .Join(_myData.Bookings, hr => hr.Room.RoomID, b => b.RoomID, (hr, b) => new { HotelRoom = hr, Booking = b })
+               .Join(_myData.Payments, hrb => hrb.Booking.BookingID, p => p.BookingID, (hrb, p) => new { HotelRoomBooking = hrb, Payment = p })
+               .GroupBy(x => new { x.HotelRoomBooking.HotelRoom.Hotel.HotelID, x.HotelRoomBooking.HotelRoom.Hotel.HotelName, x.HotelRoomBooking.HotelRoom.Hotel.Address, x.HotelRoomBooking.HotelRoom.Hotel.Image1, 
+                   x.HotelRoomBooking.HotelRoom.Hotel.PhoneNumber })
+               .Select(g => new
+               {
+                   HotelID = g.Key.HotelID,
+                   HotelName = g.Key.HotelName,
+                   Address = g.Key.Address,
+                   Image = g.Key.Image1,
+                   PhoneNumber = g.Key.PhoneNumber,
+                   TotalPayments = g.Select(x => x.Payment.PaymentID).Distinct().Count()
+               })
+               .OrderByDescending(x => x.TotalPayments)
+               .Take(5)
+               .ToListAsync();
+
+            var hotels = famousHotels.Select(x => new Hotel
+            {
+                HotelID = x.HotelID,
+                HotelName = x.HotelName,
+                Address = x.Address,
+                Image1 = x.Image,
+                PhoneNumber = x.PhoneNumber,
+
+            });
+
+            return hotels;
+        }
+
+        public async Task<IEnumerable<Hotel>> ListHotelInArea(int AreaId)
+        {
+            return await _myData.Hotels.Where(h => h.AreaID == AreaId).ToListAsync();
+        }
+        public async Task<IEnumerable<Hotel>> ListHoteltype(int TypeId)
+        {
+            return await _myData.Hotels.Where(h => h.TypeID == TypeId).ToListAsync();
+        }
+    }   
 }

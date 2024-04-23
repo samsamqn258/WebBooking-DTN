@@ -1,0 +1,188 @@
+﻿@model WebBooking.Models.Room
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h4 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+        .btn-back {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+            .btn-back:hover {
+                background-color: #5a6268;
+                border-color: #545b62;
+            }
+    </style>
+</head>
+<body>
+    <main class="page-room">
+        <div class="container">
+            <h4>Edit Phong</h4>
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <input type="hidden" asp-for="RoomID" />
+                <!-- Ẩn cột chọn khách sạn khi chỉnh sửa -->
+                <div class="form-group" style="display: none;">
+                    <label asp-for="HotelID" class="control-label">Khach San:</label>
+                    <select asp-for="HotelID" class="form-control" asp-items="ViewBag.HotelId"></select>
+                    <span asp-validation-for="HotelID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TypeID" class="control-label">Loai Phong:</label>
+                    <select asp-for="TypeID" class="form-control" asp-items="ViewBag.TypeID"></select>
+                    <span asp-validation-for="TypeID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoomNumber" class="control-label">So Phong:</label>
+                    <input asp-for="RoomNumber" class="form-control" />
+                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PricePerNight" class="control-label">Gia Moi Dem:</label>
+                    <input asp-for="PricePerNight" class="form-control" />
+                    <span asp-validation-for="PricePerNight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amenities" class="control-label">Mo Ta:</label>
+                    <input asp-for="Amenities" class="form-control" />
+                    <span asp-validation-for="Amenities" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image1" class="control-label">Hinh Anh 1:</label>
+                    <input type="file" asp-for="Image1" accept="image/*" onchange="previewImage(event, 'preview1')" class="form-control" />
+                    <img id="preview1" src="@Model.Image1" alt="Preview Image" style="display: none;" />
+                    <span asp-validation-for="Image1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image2" class="control-label">Hinh Anh 2:</label>
+                    <input type="file" asp-for="Image2" accept="image/*" onchange="previewImage(event, 'preview2')" class="form-control" />
+                    <img id="preview2" src="@Model.Image2" alt="Preview Image" style="display: none;" />
+                    <span asp-validation-for="Image2" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image3" class="control-label">Hinh Anh 3:</label>
+                    <input type="file" asp-for="Image3" accept="image/*" onchange="previewImage(event, 'preview3')" class="form-control" />
+                    <img id="preview3" src="@Model.Image3" alt="Preview Image" style="display: none;" />
+                    <span asp-validation-for="Image3" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label">Trang Thai Hoat Dong</label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label">Khuyen Mai:</label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+            <div class="text-center">
+                <a asp-action="Index" asp-controller="Room" asp-route-khachsanId="@Model.HotelID" class="btn btn-back">Back to List</a>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        // Function to preview image
+        function previewImage(event, imgId, currentImageUrl) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var img = document.getElementById(imgId);
+                img.src = reader.result;
+                img.style.display = 'block';
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                var img = document.getElementById(imgId);
+                img.src = currentImageUrl; // Set current image URL if no new file selected
+                img.style.display = 'block';
+            }
+        }
+
+        // Function to execute when document is ready
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get current image URLs
+            var currentImageUrl1 = "@Model.Image1";
+            var currentImageUrl2 = "@Model.Image2";
+            var currentImageUrl3 = "@Model.Image3";
+
+            // Check if there's a current image URL for each field and display it
+            if (currentImageUrl1) {
+                var preview1 = document.getElementById("preview1");
+                preview1.src = currentImageUrl1;
+                preview1.style.display = 'block';
+            }
+            if (currentImageUrl2) {
+                var preview2 = document.getElementById("preview2");
+                preview2.src = currentImageUrl2;
+                preview2.style.display = 'block';
+            }
+            if (currentImageUrl3) {
+                var preview3 = document.getElementById("preview3");
+                preview3.src = currentImageUrl3;
+                preview3.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

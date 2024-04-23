@@ -1,0 +1,249 @@
+﻿@model WebBooking.Models.Hotel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f7f9;
+            color: #333;
+            margin-top: 50px; /* Đẩy phần nội dung xuống dưới để căn lề ngắn vào */
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto; /* Căn giữa container */
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: slide-in-bottom 0.5s ease;
+        }
+
+        .slide-in-bottom {
+            from
+
+        {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        }
+
+        h4 {
+            color: #007bff; /* Màu xanh nổi bật cho tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 15px; /* Khoảng cách giữa các input */
+        }
+
+        .form-group input[type="file"] {
+            width: auto;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-bottom: 15px; /* Khoảng cách giữa các input */
+        }
+
+        img#preview {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .back-link a {
+                color: #007bff;
+                text-decoration: none;
+                font-weight: bold;
+                transition: color 0.3s ease;
+            }
+
+                .back-link a:hover {
+                    color: #0056b3;
+                }
+    </style>
+</head>
+<body>
+    <main class="page-hotel">
+
+        <div class="container">
+            <h4>Chỉnh sửa thông tin Khách Sạn</h4>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <form asp-action="Edit"  enctype="multipart/form-data">
+                        <input type="hidden" asp-for="HotelID" />
+                        <div class="form-group">
+                            <label asp-for="TypeID" class="control-label" style="color: #ff8800;">Loại khách sạn</label> <!-- Màu cam cho tiêu đề -->
+                            <select asp-for="TypeID" class="form-control" asp-items="ViewBag.TypeID"></select>
+                            <span asp-validation-for="TypeID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AreaID" class="control-label" style="color: #ff8800;">Khu vực</label> <!-- Màu cam cho tiêu đề -->
+                            <select asp-for="AreaID" class="form-control" asp-items="ViewBag.AreaID"></select>
+                            <span asp-validation-for="AreaID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="HotelName" class="control-label" style="color: #ff8800;">Tên khách sạn</label> <!-- Màu cam cho tiêu đề -->
+                            <input asp-for="HotelName" class="form-control" />
+                            <span asp-validation-for="HotelName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label" style="color: #ff8800;">Địa chỉ</label> <!-- Màu cam cho tiêu đề -->
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="control-label" style="color: #ff8800;">Số điện thoại</label> <!-- Màu cam cho tiêu đề -->
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                      
+                        <div class="form-group">
+                            <label asp-for="Image1" class="control-label">Hinh Anh 1:</label>
+                            <input type="file" asp-for="Image1" accept="image/*" onchange="previewImage(event, 'preview1')" class="form-control" />
+                            <img id="preview1" src="@Model.Image1" alt="Preview Image" style="display: none; width: 250px; height:150px; object-fit:cover" />
+                            <span asp-validation-for="Image1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image2" class="control-label">Hinh Anh 2:</label>
+                            <input type="file" asp-for="Image2" accept="image/*" onchange="previewImage(event, 'preview2')" class="form-control" />
+                            <img id="preview2" src="@Model.Image2" alt="Preview Image" style="display: none;  width: 250px; height:150px; object-fit:cover" />
+                            <span asp-validation-for="Image2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image3" class="control-label">Hinh Anh 3:</label>
+                            <input type="file" asp-for="Image3" accept="image/*" onchange="previewImage(event, 'preview3')" class="form-control" />
+                            <img id="preview3" src="@Model.Image3" alt="Preview Image" style="display: none;  width: 250px; height:150px; object-fit:cover" />
+                            <span asp-validation-for="Image3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" asp-for="IsActive" />
+                                <label class="form-check-label" asp-for="IsActive">@Html.DisplayNameFor(model => model.IsActive)</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="back-link">
+                <a asp-action="Index">Quay lại danh sách</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // function previewImage(event) {
+        //     var reader = new FileReader();
+        //     reader.onload = function () {
+        //         var output = document.getElementById('preview');
+        //         output.src = reader.result;
+        //     };
+        //     reader.readAsDataURL(event.target.files[0]);
+        // }
+    
+            // Function to preview image
+        // Function to preview image
+        function previewImage(event, imgId, currentImageUrl) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var img = document.getElementById(imgId);
+                img.src = reader.result;
+                img.style.display = 'block';
+            };
+
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                var img = document.getElementById(imgId);
+                img.src = currentImageUrl; // Set current image URL if no new file selected
+                img.style.display = 'block';
+            }
+        }
+
+        // Function to execute when document is ready
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get current image URLs
+            var currentImageUrl1 = "@Model.Image1";
+            var currentImageUrl2 = "@Model.Image2";
+            var currentImageUrl3 = "@Model.Image3";
+
+            // Check if there's a current image URL for each field and display it
+            if (currentImageUrl1) {
+                var preview1 = document.getElementById("preview1");
+                preview1.src = currentImageUrl1;
+                preview1.style.display = 'block';
+            }
+            if (currentImageUrl2) {
+                var preview2 = document.getElementById("preview2");
+                preview2.src = currentImageUrl2;
+                preview2.style.display = 'block';
+            }
+            if (currentImageUrl3) {
+                var preview3 = document.getElementById("preview3");
+                preview3.src = currentImageUrl3;
+                preview3.style.display = 'block';
+            }
+        });
+  
+    </script>
+</body>
+</html>
+

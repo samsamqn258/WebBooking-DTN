@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebBooking.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cập nhật Phiếu Đặt Phòng</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        /* CSS styles */
+    </style>
+</head>
+<body>
+    <main class="page-hotel">
+        <div class="container">
+            <h1>Cập nhật Phiếu Đặt Phòng</h1>
+            @if (Model != null)
+            {
+                <form method="post" action="@Url.Action("UpdateBooking", "ProcessBookingHotelOwner")">
+                    <input type="hidden" name="id" value="@ViewBag.BookingId">
+
+                    <!-- Add other fields as needed -->
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </form>
+            }
+            else
+            {
+                <p class="message">Phiếu không tồn tại.</p>
+            }
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <p class="message">@ViewBag.Message</p>
+            }
+        </div>
+    </main>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

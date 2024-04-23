@@ -52,6 +52,9 @@ namespace WebBooking.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NumberOfHotels")
+                        .HasColumnType("int");
+
                     b.HasKey("AreaID");
 
                     b.ToTable("Areas");
@@ -181,13 +184,19 @@ namespace WebBooking.Migrations
                     b.Property<int>("AreaID")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HotelName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("HotelTypeTypeID")
-                        .HasColumnType("int");
+                    b.Property<string>("Image1")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("Image2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image3")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -209,7 +218,7 @@ namespace WebBooking.Migrations
 
                     b.HasIndex("AreaID");
 
-                    b.HasIndex("HotelTypeTypeID");
+                    b.HasIndex("TypeID");
 
                     b.HasIndex("UserID");
 
@@ -223,6 +232,9 @@ namespace WebBooking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypeID"));
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeName")
                         .HasColumnType("nvarchar(max)");
@@ -246,9 +258,6 @@ namespace WebBooking.Migrations
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PaymentTypeTypeID")
-                        .HasColumnType("int");
-
                     b.Property<double?>("TotalPayment")
                         .HasColumnType("float");
 
@@ -259,7 +268,7 @@ namespace WebBooking.Migrations
 
                     b.HasIndex("BookingID");
 
-                    b.HasIndex("PaymentTypeTypeID");
+                    b.HasIndex("TypeID");
 
                     b.ToTable("Payments");
                 });
@@ -288,7 +297,7 @@ namespace WebBooking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomID"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Amenities")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Discount")
@@ -315,9 +324,6 @@ namespace WebBooking.Migrations
                     b.Property<string>("RoomNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoomTypeTypeID")
-                        .HasColumnType("int");
-
                     b.Property<int>("TypeID")
                         .HasColumnType("int");
 
@@ -325,7 +331,7 @@ namespace WebBooking.Migrations
 
                     b.HasIndex("HotelID");
 
-                    b.HasIndex("RoomTypeTypeID");
+                    b.HasIndex("TypeID");
 
                     b.ToTable("Rooms");
                 });
@@ -450,7 +456,9 @@ namespace WebBooking.Migrations
 
                     b.HasOne("WebBooking.Models.HotelType", "HotelType")
                         .WithMany()
-                        .HasForeignKey("HotelTypeTypeID");
+                        .HasForeignKey("TypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebBooking.Models.User", "User")
                         .WithMany()
@@ -475,7 +483,9 @@ namespace WebBooking.Migrations
 
                     b.HasOne("WebBooking.Models.PaymentType", "PaymentType")
                         .WithMany()
-                        .HasForeignKey("PaymentTypeTypeID");
+                        .HasForeignKey("TypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Booking");
 
@@ -492,7 +502,9 @@ namespace WebBooking.Migrations
 
                     b.HasOne("WebBooking.Models.RoomType", "RoomType")
                         .WithMany()
-                        .HasForeignKey("RoomTypeTypeID");
+                        .HasForeignKey("TypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Hotel");
 

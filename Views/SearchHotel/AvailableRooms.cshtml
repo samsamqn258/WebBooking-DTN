@@ -49,6 +49,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-2">
+                    @if (ViewBag.NoDay != null)
+                    {
+
+                        <p>    @ViewBag.NoDay</p>
+                        
+                    }
                     <div class="product__form">
                         <h3>Tìm kiếm phòng trống trong khách sạn</h3>
                         <form asp-action="AvailableRoomsInHotel" method="get">
@@ -144,7 +150,7 @@
                                             </div>
 
                                             <p class="product__detail-desc">
-                                                @Html.DisplayFor(modelItem => item.Description)
+                                                @Html.DisplayFor(modelItem => item.Amenities)
                                             </p>
                                         </div>
                                     </div>
@@ -189,8 +195,32 @@
                                                 }
                                                 else
                                                 {
-                                                    <a href="@Url.Action("CreateNewBooking", "CreateBooking", new { roomId = item.RoomID, fromDate =  TempData["FromDate"], toDate = TempData["ToDate"]  })" class="btn-custom product-info__card-btn">Đặt Phòng</a>
+                                                    @if (TempData["FromDate"] == null || TempData["ToDate"] == null || (DateTime)TempData["FromDate"] == DateTime.MinValue || (DateTime)TempData["ToDate"] == DateTime.MinValue)
+                                                    {
+                                                        <a href="#!" class="btn-custom product-info__card-btn show-modal-a">Đặt Phòng</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="#!" class="btn-custom product-info__card-btn show-modal-a">Đặt Phòng</a>
+                                                    }
+
+
                                                 }
+                                                <div class="modal-a hidden">
+                                                    <button class="close-modal-a">&times;</button>
+                                                    <h1 class="abc">I'm a modal window 😍</h1>
+                                                    <p class="abcd">
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                                                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                                                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                                        mollit anim id est laborum.
+                                                    </p>
+                                                    <a href="@Url.Action("CreateNewBooking", "CreateBooking", new { roomId = item.RoomID, fromDate = TempData["FromDate"], toDate = TempData["ToDate"] })">Xác nhận đặt phòng</a>
+                                                </div>
+                                                <div class="overlay-a hidden"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -200,11 +230,42 @@
                     }
                 </div>
             </div>
+          
         </div>
+  
     </main>
-    <script>
 
+    <script>
+   
         document.addEventListener("DOMContentLoaded", function () {
+            const openModal = function () {
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+            };
+
+            const closeModal = function () {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+            };
+
+            const modal = document.querySelector('.modal-a');
+            const overlay = document.querySelector('.overlay-a');
+            const btnCloseModal = document.querySelector('.close-modal-a');
+            const btnOpenModal = document.querySelectorAll('.show-modal-a');
+
+            for (let i = 0; i < btnOpenModal.length; i++)
+                btnOpenModal[i].addEventListener('click', openModal);
+
+            btnCloseModal.addEventListener('click', closeModal);
+
+            overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keyup', function (e) {
+                console.log(e.key);
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
             var fromDateInput = document.getElementById("fromDate");
             var toDateInput = document.getElementById("toDate");
 
@@ -229,8 +290,8 @@
                 }
             });
         });
-    </script>
 
+    </script>
 
 </body>
 </html>

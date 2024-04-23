@@ -27,12 +27,17 @@ namespace WebBooking.Data.EF_Repository
 
         public async Task<Room> GetByIdAsync(int roomId)
         {
-            return await _myData.Rooms.FirstOrDefaultAsync(p => p.RoomID == roomId);
+            return await _myData.Rooms.Include(p => p.Hotel).Include(p => p.RoomType).FirstOrDefaultAsync(p => p.RoomID == roomId);
         }
 
         public async Task<IEnumerable<Room>> GetAllByAllRoomInHotelIdAsync(int hotelId)
         {
-            return await _myData.Rooms.Where(p => p.HotelID == hotelId).ToListAsync();
+            return await _myData.Rooms.Include(p => p.Hotel).Include(p => p.RoomType).Where(p => p.HotelID == hotelId && p.IsActive == true).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Room>> GetAllByAllRoomInHotelIdHiddenAsync(int hotelId)
+        {
+            return await _myData.Rooms.Include(p => p.Hotel).Include(p => p.RoomType).Where(p => p.HotelID == hotelId && p.IsActive == false).ToListAsync();
         }
 
 

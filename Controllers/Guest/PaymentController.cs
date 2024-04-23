@@ -156,7 +156,8 @@ namespace WebBooking.Controllers.Guest
                 booking.BookingStatus = true;
                 booking.PaymentStatus = true;
                 Payment bill = new Payment();
-                bill.PaymentID = 1;
+                bill.TypeID = 1;
+                bill.PaymentDate = DateTime.Now;
                 bill.TotalPayment = booking.TotalPriceBooking;
                 bill.BookingID = booking.BookingID;
                 await _paymentIRepository.AddAsync(bill);

@@ -1,0 +1,234 @@
+﻿@model IEnumerable<WebBooking.Models.Hotel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        .container {
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        img {
+            max-height: 100px;
+            border-radius: 6px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            text-align: center;
+        }
+
+        .edit-link,
+        .detail-link,
+        .view-room-link,
+        .view-booking-link,
+        .view-invoice-link {
+            width: 100px;
+            line-height: 32px;
+            margin-right: 5px;
+        }
+
+        .edit-link {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .detail-link {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .view-room-link {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .view-booking-link {
+            background-color: #28a745;
+            color: #fff;
+            font-size: 9px;
+        }
+
+        .view-invoice-link {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        a:hover {
+            filter: brightness(85%);
+        }
+
+        .Custom-btn {
+            display: grid;
+            grid-template-columns: repeat(3, 130px);
+            gap: 10px;
+            align-items: center;
+        }
+
+            .Custom-btn a:last-child {
+                font-size: 13px;
+                width: 100px;
+            }
+
+        .btn-primary,
+        .btn-secondary,
+        .btn-create,
+        .btn-edit {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 5px;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        .btn-create {
+            background-color: #28a745;
+        }
+
+            .btn-create:hover {
+                background-color: #218838;
+            }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+            .btn-edit:hover {
+                background-color: #e0a800;
+            }
+
+    </style>
+</head>
+<body>
+
+    <main class="page-hotel">
+        <div class="container">
+
+            @if (Model.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Khách Sạn</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Địa Chỉ</th>
+                            <th>Hình Ảnh 1</th>
+                            <th>Hình Ảnh 2</th>
+                            <th>Hình Ảnh 3</th>
+                            <th>Trạng thái hoạt động</th>
+                            <th>Loại Khách Sạn</th>
+                            <th>Khu Vực</th>
+                            <td>Thao tác</td>
+                  
+               
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.HotelName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td><img src="@Url.Content(item.Image1)" alt="Hình ảnh" /></td>
+                                <td><img src="@Url.Content(item.Image2)" alt="Hình ảnh" /></td>
+                                <td><img src="@Url.Content(item.Image3)" alt="Hình ảnh" /></td>
+                                <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+                                <td>@Html.DisplayFor(modelItem => item.HotelType.TypeName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Area.AreaName)</td>
+                                <td class="Custom-btn">
+                                    <a href="@Url.Action("Edit", "Hotel", new {hotelId = item.HotelID})" class="edit-link">Sửa</a>
+                                    <a href="@Url.Action("Details", "Hotel", new {hotelId = item.HotelID})"  class="detail-link">Chi tiết</a>
+                                    <a href="@Url.Action("Index", "Room")" class="view-room-link">Xem phòng</a>
+                                    <a href="@Url.Action("ListBookingInHotel", "ListForm")" class="view-booking-link">Xem phiếu đặt phòng</a>
+                                    <a href="@Url.Action("ListPayment", "ListForm")" class="view-invoice-link">Xem hóa đơn</a>
+                                    <a href="@Url.Action("ListBookingConfirmed", "ListForm")" class="btn-primary">Danh sách đặt phòng </a>
+                                    <a href="@Url.Action("ListRoomHidden", "Room", new { hotelId = item.HotelID })" class="view-room-link">Danh sách phòng ẩn</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="no-records">Hiện không có khách sạn nào.</p>
+                <div class="cta-container">
+                    <a asp-action="Create" class="btn-create">Tạo mới khách sạn</a>
+                </div>
+            }
+        </div>
+
+    </main>
+</body>
+</html>

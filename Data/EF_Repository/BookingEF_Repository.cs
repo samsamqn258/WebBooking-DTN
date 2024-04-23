@@ -43,7 +43,7 @@ namespace WebBooking.Data.EF_Repository
                                   where p.HotelID == hotels.HotelID
                                   && !_myData.CancelBookings.Any(phdp => phdp.BookingID == pdp.BookingID)
                                   && pdp.BookingStatus == true 
-                                  select pdp).ToListAsync();
+                                  select pdp).Include(phdp => phdp.Room).Include(phdp => phdp.User).ToListAsync();
 
 
             return bookings;
@@ -55,7 +55,7 @@ namespace WebBooking.Data.EF_Repository
                                   where p.HotelID == hotels.HotelID
                                   && !_myData.CancelBookings.Any(phdp => phdp.BookingID == pdp.BookingID)
                                   && pdp.BookingStatus == false
-                                  select pdp).ToListAsync();
+                                  select pdp).Include(phdp => phdp.Room).Include(phdp => phdp.User).ToListAsync();
 
             return bookings;
         }

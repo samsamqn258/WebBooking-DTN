@@ -26,11 +26,14 @@ namespace WebBooking.Data.EF_Repository
         public async Task<IEnumerable<Payment>> GetAllByHotelOwnerIdAsync(int hotelOwnerId)
         {
             return await _myData.Payments
+                .Include(ptt => ptt.PaymentType)
                 .Include(ptt => ptt.Booking)
                     .ThenInclude(pdp => pdp.Room)
-                        .ThenInclude(p => p.Hotel)
-                .Where(ptt => ptt.Booking.Room.Hotel.UserID == hotelOwnerId)
+                .Include(ptt => ptt.Booking.Room.Hotel.User) // Include thông tin chủ khách sạn
+                .Include(ptt => ptt.Booking.User) // Include thông tin khách hàng
+                .Where(ptt => ptt.Booking.Room.Hotel.User.UserID == hotelOwnerId)
                 .ToListAsync();
+
         }
         public async Task<IEnumerable<Payment>> GetAllByGuestIdAsync(int guestId)
         {

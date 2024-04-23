@@ -40,10 +40,6 @@ namespace WebBooking.Data
 
             modelBuilder.Entity<FavoriteHotel>()
                 .HasKey(fh => new { fh.HotelID, fh.UserID });
-
-            modelBuilder.Entity<HotelType>().HasKey(ht => ht.TypeID);
-            modelBuilder.Entity<PaymentType>().HasKey(ht => ht.TypeID);
-            modelBuilder.Entity<RoomType>().HasKey(ht => ht.TypeID);
         }
     }
 }

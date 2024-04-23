@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout-hotelOwner";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
 }
 
 <!DOCTYPE html>
@@ -72,13 +72,13 @@
                                 </span>
                             </div>
                         </div>
-                        <a href="@Url.Action("LoginHotelOwner","HotelOwner")" class="btn-custom page-employer__btn">
+                        <a href="@Url.Action("RegisterHotelOwner","AccountHotelOwner")" class="btn-custom page-employer__btn">
                             Bắt đầu ngay
                         </a>
                         <p class="page-employer__info-desc">
                             Quý vị đã bắt đầu quá trình đăng ký?
                         </p>
-                        <a href="@Url.Action("RegisterHotelOwner","HotelOwner")" class="page-employer__link">
+                        <a href="@Url.Action("LoginHotelOwner","AccountHotelOwner")" class="page-employer__link">
                             Tiếp tục các bước đăng ký
                         </a>
                     </div>

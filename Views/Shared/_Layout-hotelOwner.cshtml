@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,69 +41,69 @@
     <div class="top-bar">
         @if (User.Identity.IsAuthenticated)
         {
-        string userType = User.FindFirst(ClaimTypes.Role)?.Value;
-        string userName = User.Identity.Name;
+            string userType = User.FindFirst(ClaimTypes.Role)?.Value;
+            string userName = User.Identity.Name;
             if (userType == "1")
-        {
-        <div class="header__inner">
-            <!-- logo -->
-            <a href="@Url.Action("Index", "HotelOwner" )" class="logo">
-                <img src="/icons/logo.svg"
-                     alt="GOODBOOKING"
-                     class="logo__img" />
-            </a>
+            {
+                <div class="header__inner">
+                    <!-- logo -->
+                    <a href="@Url.Action("Index", "HotelOwner")" class="logo">
+                        <img src="/icons/logo.svg"
+                             alt="GOODBOOKING"
+                             class="logo__img" />
+                    </a>
 
-            <!-- Controls -->
-            <div class="controls">
+                    <!-- Controls -->
+                    <div class="controls">
 
-                <!-- User -->
-                <div class="top-act__user">
-                    <div class="user-menu__top">
-                        <img src="/img/header-user.jpg"
-                             alt=""
-                             class="user-menu__avatar" />
-                        <div>
-                            <p class="user-menu__desc">Xin chào,</p>
-                            <p class="user-menu__name">@userName</p>
-                        </div>
-                    </div>
-                    <!-- DropDown -->
-                    <div class="act-dropdown top-act__dropdown">
-                        <div class="act-dropdown__inner user-menu">
-                            <ul class="user-menu__list">
-                                <li>
+                        <!-- User -->
+                        <div class="top-act__user">
+                            <div class="user-menu__top">
+                                <img src="/img/header-user.jpg"
+                                     alt=""
+                                     class="user-menu__avatar" />
+                                <div>
+                                    <p class="user-menu__desc">Xin chào,</p>
+                                    <p class="user-menu__name">@userName</p>
+                                </div>
+                            </div>
+                            <!-- DropDown -->
+                            <div class="act-dropdown top-act__dropdown">
+                                <div class="act-dropdown__inner user-menu">
+                                    <ul class="user-menu__list">
+                                        <li>
                                             <a href="@Url.Action(" DisplayInfoHotelOwner", "HotelOwner" )" class="user-menu__link">Thông tin cá nhân</a>
-                                </li>
+                                        </li>
 
-                                <li>
-                                    <a href="/dang-xuat-nguoidung" class="user-menu__link user-menu__separate">
-                                        Đăng Xuất
-                                    </a>
-                                </li>
-                            </ul>
+                                        <li>
+                                            <a href="/logout-user" class="user-menu__link user-menu__separate">
+                                                Đăng Xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        }
+            }
         }
         else
         {
-        <div class="header__inner">
-            <!-- logo -->
+            <div class="header__inner">
+                <!-- logo -->
                 <a href="@Url.Action(" Index", "HotelOwner" )" class="logo">
-                <img src="/icons/logo.svg"
-                     alt="GOODBOOKING"
-                     class="logo__img" />
-            </a>
+                    <img src="/icons/logo.svg"
+                         alt="GOODBOOKING"
+                         class="logo__img" />
+                </a>
 
-            <!-- Controls -->
-            <div class="controls">
-                    <a href="@Url.Action(" RegisterHotelOwner", "HotelOwner" )" class="controls__sign-up btn-custom">Đăng kí</a>
-                    <a href="@Url.Action(" LoginHotelOwner", "HotelOwner" )" class="controls__sign-in btn-custom">Đăng nhập</a>
+                <!-- Controls -->
+                <div class="controls">
+                    <a href="@Url.Action("RegisterHotelOwner","AccountHotelOwner" )" class="controls__sign-up btn-custom">Đăng kí</a>
+                    <a href="@Url.Action("LoginHotelOwner", "AccountHotelOwner" )" class="controls__sign-in btn-custom">Đăng nhập</a>
+                </div>
             </div>
-        </div>
         }
     </div>
     @RenderBody()
@@ -111,7 +112,7 @@
         <div class="footer__row">
             <!-- col-1 -->
             <div class="footer__col">
-                <a href="@Url.Action("Index", "HotelOwner" )" class="logo">
+                <a href="@Url.Action("Index", "Hotel" )" class="logo">
                     <img src="/icons/logo.svg"
                          alt="GOODBOOKING"
                          class="logo__img" />

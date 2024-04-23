@@ -1,0 +1,171 @@
+﻿@model WebBooking.Models.Room
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create Phòng</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding-top: 40px;
+        }
+
+
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h4 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .custom-file-label::after {
+            content: "Chọn file";
+        }
+
+        img {
+            max-height: 200px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .btn-create {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+            .btn-create:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+
+        .btn-back {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+            .btn-back:hover {
+                background-color: #c82333;
+                border-color: #bd2130;
+            }
+
+        .text-danger {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <main class="page-room">
+        <div class="container">
+            <h4>Thêm Phòng Mới</h4>
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="HotelID" class="control-label">Khách Sạn</label>
+                    <input asp-for="HotelID" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label asp-for="TypeID" class="control-label">Loại Phòng</label>
+                    <select asp-for="TypeID" class="form-control" asp-items="@ViewBag.TypeID"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoomNumber" class="control-label">Số Phòng</label>
+                    <input asp-for="RoomNumber" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PricePerNight" class="control-label">Giá Mỗi Đêm</label>
+                    <input asp-for="PricePerNight" class="form-control" />
+                    <span asp-validation-for="PricePerNight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amenities" class="control-label">Mô Tả</label>
+                    <input asp-for="Amenities" class="form-control" />
+                    <span asp-validation-for="Amenities" class="text-danger"></span>
+                </div>
+                <!-- Input for Image1 -->
+                <div class="form-group">
+                    <label asp-for="Image1" class="control-label">Hình ảnh 1</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" asp-for="Image1" onchange="previewImage(event, 'preview1')" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Chọn file</label>
+                    </div>
+                    <span asp-validation-for="Image1" class="text-danger"></span>
+                    <img id="preview1" src="#" alt="Preview Image" style="display: none;" />
+                </div>
+                <!-- Input for Image2 -->
+                <div class="form-group">
+                    <label asp-for="Image2" class="control-label">Hình ảnh 2</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" asp-for="Image2" onchange="previewImage(event, 'preview2')" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Chọn file</label>
+                    </div>
+                    <span asp-validation-for="Image2" class="text-danger"></span>
+                    <img id="preview2" src="#" alt="Preview Image" style="display: none;" />
+                </div>
+                <!-- Input for Image3 -->
+                <div class="form-group">
+                    <label asp-for="Image3" class="control-label">Hình ảnh 3</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" asp-for="Image3" onchange="previewImage(event, 'preview3')" accept="image/*">
+                        <label class="custom-file-label" for="customFile">Chọn file</label>
+                    </div>
+                    <span asp-validation-for="Image3" class="text-danger"></span>
+                    <img id="preview3" src="#" alt="Preview Image" style="display: none;" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Discount" class="control-label">Khuyến Mãi</label>
+                    <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <label asp-for="IsActive" class="form-check-label">Trạng Thái Hoạt Động</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-create">Tạo mới</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function previewImage(event, imgId) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById(imgId);
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>

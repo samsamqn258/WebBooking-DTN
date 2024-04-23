@@ -1,0 +1,151 @@
+﻿@model WebBooking.Models.Room
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h4 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .col-sm-2 {
+            float: left;
+            width: 30%;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .col-sm-10 {
+            float: left;
+            width: 70%;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .action-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .action-links a {
+                color: #007bff;
+                text-decoration: none;
+                margin: 0 10px;
+                padding: 5px 10px;
+                border: 1px solid #007bff;
+                border-radius: 5px;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .action-links a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                }
+    </style>
+</head>
+<body>
+    <main class="page-room">
+
+        <div class="container">
+            <h4>Phong Details</h4>
+            <hr>
+            <div class="row">
+                <div class="col-sm-2">Số Phòng:</div>
+                <div class="col-sm-10">@Model.RoomNumber</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Giá Mỗi Đêm:</div>
+                <div class="col-sm-10">@Model.PricePerNight</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Mô Tả:</div>
+                <div class="col-sm-10">@Model.Amenities</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Hình ảnh 1:</div>
+                <div class="col-sm-10"><img src="@Model.Image1" alt="Hình ảnh" /></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Hình ảnh 2:</div>
+                <div class="col-sm-10"><img src="@Model.Image2" alt="Hình ảnh" /></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Hình ảnh 3:</div>
+                <div class="col-sm-10"><img src="@Model.Image3" alt="Hình ảnh" /></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Trạng Thái:</div>
+                <div class="col-sm-10">@Model.IsActive</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Khuyến Mãi:</div>
+                <div class="col-sm-10">@Model.Discount</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Loại Phòng:</div>
+                <div class="col-sm-10">@Model.RoomType.TypeName</div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">Khách Sạn:</div>
+                <div class="col-sm-10">@Model.Hotel.HotelName</div>
+            </div>
+
+            <div class="action-links">
+                <a  href="@Url.Action("Edit", "Room", new {roomId = Model.RoomID})">Chỉnh sửa</a>
+                <a asp-action="Index" asp-controller="Room" asp-route-khachsanId="@Model.HotelID" class="btn btn-back">Back to List</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

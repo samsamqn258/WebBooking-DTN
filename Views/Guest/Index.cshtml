@@ -1,5 +1,10 @@
 ﻿
-@model IEnumerable<WebBooking.Models.Hotel>
+@* @model IEnumerable<WebBooking.Models.Hotel> *@
+@{
+    var famousHotels = ViewBag.FamousHotels as IEnumerable<Hotel>;
+    var famousAreas = ViewBag.FamousAreas as IEnumerable<Area>;
+    var hotelTypes = ViewBag.HotelTypes as IEnumerable<HotelType>;
+}
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout-guest.cshtml";
@@ -10,99 +15,17 @@
         <section class="home__container">
             <h2 class="home__heading">Tìm theo loại chỗ nghỉ</h2>
             <div class="booking">
+                @foreach (var hotelType in hotelTypes.Take(4)) {
                 <div class="booking-item">
-                    <a href="@Url.Action("GetHotelsByType","LoaiKhachSan", new{id=1})">
-                        <img src="/img/booking-type-img-1.png"
+                     <a href="@Url.Action("AllHotelType", "SearchHotel", new { TypeId = hotelType.TypeID})">
+                            <img src="@hotelType.Image"
                              class="booking-thumb" />
                     </a>
-
-                    <p class="booking-title">Khách sạn</p>
+                        <p class="booking-title">@hotelType.TypeName</p>
                 </div>
-                <div class="booking-item">
-                    <a href="@Url.Action("GetHotelsByType","LoaiKhachSan", new{id=2})">
-                        <img src="/img/booking-type-img-2.png"
-                             class="booking-thumb" />
-                    </a>
-                    <p class="booking-title">Căn Hộ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="@Url.Action("GetHotelsByType","LoaiKhachSan", new{id=3})">
-                        <img src="/img/booking-type-img-3.png"
-                             class="booking-thumb" />
-                    </a>
-                    <p class="booking-title">Resort</p>
-                </div>
-                <div class="booking-item">
-                    <a href="@Url.Action("GetHotelsByType","LoaiKhachSan", new{id=4})">
-                        <img src="/img/booking-type-img-4.png"
-                             class="booking-thumb" />
-                    </a>
-                    <p class="booking-title">Biệt Thự</p>
-                </div>
+                }
             </div>
 
-        </section>
-
-        <section class="home__container">
-            <h2 class="home__heading">Điểm đến thịnh hành</h2>
-            <p class="home__desc">
-                Các lựa chọn phổ biến nhất cho du khách từ Việt Nam
-            </p>
-            <div class="booking">
-                <div class="row g-4 row-cols-2">
-                    <div class="col">
-                        <a href="@Url.ActionLink("LocTheoCity","LocCity", new{id=1})" class="booking__link">
-                            <span class="booking-position booking-title booking-title--large booking-title--no-margin">
-                                TP. Hồ Chí Minh
-                            </span>
-                            <img src="/img/booking-tphcm.png"
-                                 alt=""
-                                 class="booking-thumb booking-thumb--large" />
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="@Url.ActionLink("LocTheoCity","LocCity", new{id=2})" class="booking__link">
-                            <span class="booking-position booking-title booking-title--large booking-title--no-margin">
-                                Hà Nội
-                            </span>
-                            <img src="/img/booking-hanoi.png"
-                                 alt=""
-                                 class="booking-thumb booking-thumb--large" />
-                        </a>
-                    </div>
-
-                    <div class="col-4">
-                        <a href="@Url.ActionLink("LocTheoCity","LocCity", new{id=2})" class="booking__link">
-                            <span class="booking-position booking-title booking-title--large booking-title--no-margin">
-                                Đà Lạt
-                            </span>
-                            <img src="/img/booking-dalat.png"
-                                 alt=""
-                                 class="booking-thumb booking-thumb--medium" />
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="@Url.ActionLink("LocTheoCity","LocCity", new{id=3})" class="booking__link">
-                            <span class="booking-position booking-title booking-title--large booking-title--no-margin">
-                                Vũng Tàu
-                            </span>
-                            <img src="/img/booking-vungtau.png"
-                                 alt=""
-                                 class="booking-thumb booking-thumb--medium" />
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <a href="@Url.ActionLink("LocTheoCity","LocCity", new{id=4})" class="booking__link">
-                            <span class="booking-position booking-title booking-title--large booking-title--no-margin">
-                                Đà Nẵng
-                            </span>
-                            <img src="/img/booking-danang.png"
-                                 alt=""
-                                 class="booking-thumb booking-thumb--medium" />
-                        </a>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section class="home__container">
@@ -111,67 +34,21 @@
                 Các điểm phổ biến này có nhiều điều chờ đón bạn
             </p>
             <div class="booking booking-local">
-
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-vungtau.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        Vũng tàu
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-dalat.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        Đà Lạt
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-hanoi.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        Hà Nội
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-tphcm.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        TP.HCM
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-danang.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        Đà Nẵng
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
-                <div class="booking-item">
-                    <a href="#!">
-                        <img src="/img/booking-nhatrang.png"
-                             class="booking-thumb booking-thumb--small" />
-                    </a>
-                    <p class="booking-title booking-title--small">
-                        Nha Trang
-                    </p>
-                    <p class="booking-number-room">1.825 chỗ nghỉ</p>
-                </div>
+                @foreach (var area in famousAreas)
+                {
+                        <div class="booking-item">
+                        <a href="@Url.Action("AllHotelInArea", "SearchHotel", new { AreaId = area.AreaID})">
+                            <img src="@area.Image"
+                                 class="booking-thumb booking-thumb--small" />
+                        </a>
+                        <p class="booking-title booking-title--small">
+                            @area.AreaName
+                        </p>
+                        <p class="booking-number-room">@area.NumberOfHotels chỗ nghỉ</p>
+                    </div>
+                }
+            
+           
             </div>
         </section>
 
@@ -185,16 +62,16 @@
             </p>
             <div class="row row-cols-5 g-4">
                 <!-- Product-card 1 -->
-                @foreach (var hotel in Model.Take(5))
+                @foreach (var hotel in famousHotels)
                 {
                     <div class="col">
                         <article class="product-card">
                             <div class="product-card-wrap product-card-wrap-hotel">
-                                <a @* href="@Url.Action("AvailableRooms", "KhachHang", new { hotelId = hotel.Id,hotelName = hotel.TenKhachSan, hotelAddress =hotel.DiaChi, fromDate = ViewBag.fromDate, toDate = ViewBag.toDate, numberOfGuests = ViewBag.numberOfGuests, })" *@>
-                                    <img src="@hotel.Image"
+                                <a href="@Url.Action("AvailableRooms", "SearchHotel", new { hotelId = hotel.HotelID})">
+                                    <img src="@hotel.Image1"
                                          alt=""
                                          class="product-card__img product-card__img--small" />
-                                </a>
+                                
                                 <div class="product-card__content">
                                     <h3 class="product-card__name">
                                          @hotel.HotelName
@@ -213,11 +90,8 @@
                                             · 2.746 đánh giá
                                         </span>
                                     </div>
-                                    @*     <div class="product-card__estimate">
-                                Giá chỉ từ
-                                <strong>VNĐ 3.409.647  </strong>
-                                </div> *@
                                 </div>
+                                </a>
                             </div>
                         </article>
                     </div>

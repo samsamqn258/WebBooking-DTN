@@ -1,0 +1,173 @@
+﻿@model IEnumerable<WebBooking.Models.Room>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý danh sách phòng</title>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        td img {
+            max-width: 100px;
+            max-height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .action-links {
+            text-align: center;
+        }
+
+            .action-links a {
+                color: #28a745;
+                text-decoration: none;
+                margin: 0 5px;
+                padding: 3px 8px;
+                border-radius: 3px;
+            }
+
+                .action-links a:hover {
+                    background-color: #28a745;
+                    color: #fff;
+                }
+
+        .edit-link {
+            color: #ffc107;
+        }
+
+        .details-link {
+            color: #17a2b8;
+        }
+
+        .delete-link {
+            color: #dc3545;
+        }
+
+        .create-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+            .create-button:hover {
+                background-color: #0056b3;
+            }
+
+        .back-to-list {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff7f0e; /* Màu cam */
+            color: #fff; /* Màu chữ (trắng) */
+            text-decoration: none; /* Bỏ gạch chân */
+            border: none; /* Bỏ viền */
+            border-radius: 5px; /* Bo tròn góc */
+            cursor: pointer; /* Con trỏ chuột khi di chuột vào */
+            transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+        }
+
+            .back-to-list:hover {
+                background-color: #d95f04; /* Màu cam khi di chuột vào */
+            }
+
+    </style>
+
+</head>
+<body>
+    <main class="page-room">
+
+        <div class="container">
+            <h1>Quản lý danh sách phòng</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Số Phòng</th>
+                        <th>Giá Mỗi Đêm</th>
+                        <th>Mô Tả</th>
+                        <th>Hình 1</th>
+                        <th>Hình 2</th>
+                        <th>Hình 3</th>
+                        <th>Trạng Thái</th>
+                        <th>Khuyến Mãi</th>
+                        <th>Loại Phòng</th>
+                        <th>Khách Sạn</th>
+                        <th>Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.RoomNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PricePerNight)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Amenities)</td>
+                            <td><img src="@Url.Content(item.Image1)" alt="Hình ảnh" /></td>
+                            <td><img src="@Url.Content(item.Image2)" alt="Hình ảnh" /></td>
+                            <td><img src="@Url.Content(item.Image3)" alt="Hình ảnh" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Discount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.RoomType.TypeName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Hotel.HotelName)</td>
+                            <td class="action-links">
+                                <a class="delete-link" href="@Url.Action("UnHiddenRoom", "Room", new {roomId = item.RoomID})">Hiện Phòng</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="@Url.Action("Index", "KhachSan", new { khachsanId = ViewBag.KhachSanId })" class="back-to-list btn btn-secondary">Back to List</a>
+        </div>
+    </main>
+</body>
+</html>

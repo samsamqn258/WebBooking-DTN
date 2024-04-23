@@ -8,5 +8,8 @@ namespace WebBooking.Data.I_Repository
         Task AddAsync(Room room);
         Task UpdateAsync(Room room);
         Task<IEnumerable<Room>> GetAllByAllRoomInHotelIdAsync(int hotelId);
+        Task<IEnumerable<Room>> GetAllByAllRoomInHotelIdHiddenAsync(int hotelId);
+
+
     }
 }

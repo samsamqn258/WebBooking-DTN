@@ -1,0 +1,164 @@
+﻿@model IEnumerable<WebBooking.Models.Hotel>
+
+@{
+    ViewBag.Title = "AvailableHotels";
+    Layout = "~/Views/Shared/_Layout-guest.cshtml";
+}
+<main class="product">
+    <div class="container">
+        <section class="product__inner">
+            <div class="row">
+                <div class="col-3">
+                    <div class="filter">
+                        <h3 class="filter__heading">Chọn lọc theo:</h3>
+
+                        <form action="@Url.Action("LocRadio","KhachHang")" class="filter__form">
+                            <div class="filter__group">
+                                <h4 class="filter__form-title">
+                                    Loại chỗ ở
+                                </h4>
+                                <label for="apartment"
+                                       class="filter__form-wrap">
+                                    <div class="filter__form-row">
+                                        <input type="radio"
+                                               name="typeRoom"
+                                               id="apartment"
+                                               class="filter__input-checkbox"
+                                               value="1" />
+                                        <span class="filter__label-checkbox">
+                                            Khách sạn
+                                        </span>
+                                    </div>
+                                    @*  <span class="filter__form-quantity">
+                                    2150
+                                    </span> *@
+                                </label>
+                                <label for="hotel"
+                                       class="filter__form-wrap">
+                                    <div class="filter__form-row">
+                                        <input type="radio"
+                                               name="typeRoom"
+                                               id="hotel"
+                                               value="2"
+                                               class="filter__input-checkbox" />
+                                        <span class="filter__label-checkbox">
+                                            Căn hộ
+                                        </span>
+                                    </div>
+                                    @*  <span class="filter__form-quantity">
+                                    100
+                                    </span> *@
+                                </label>
+                                <label for="resort"
+                                       class="filter__form-wrap">
+                                    <div class="filter__form-row">
+                                        <input type="radio"
+                                               name="typeRoom"
+                                               id="resort"
+                                               value="3"
+                                               class="filter__input-checkbox" />
+                                        <span for="resort"
+                                              class="filter__label-checkbox">
+                                            Resort
+                                        </span>
+                                    </div>
+                                    @*     <span class="filter__form-quantity">
+                                    210
+                                    </span> *@
+                                </label>
+                                <label for="vila"
+                                       class="filter__form-wrap">
+                                    <div class="filter__form-row">
+                                        <input type="radio"
+                                               name="typeRoom"
+                                               id="vila"
+                                               value="4"
+                                               class="filter__input-checkbox" />
+                                        <span class="filter__label-checkbox">
+                                            Biệt thự
+                                        </span>
+                                    </div>
+                                    @*  <span class="filter__form-quantity">
+                                    9
+                                    </span> *@
+                                </label>
+                            </div>
+                            <button type="submit" style="   display: block;
+                                                            padding: 10px 25px;
+                                                            margin: 0 auto 10px;
+                                                            background: #5c4fcf;
+                                                            color: #fff;
+                                                            font-size: 13px;">
+                                Filter
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="col-9">
+                    <h1 class="product__heading">
+                        @TempData["Area"] tìm thấy @Model.Count() chỗ nghỉ
+                    </h1>
+                    @foreach (var hotel in Model)
+                    {
+                  
+                 
+                        <div class="product__list">
+                            <!-- Product Item - 1 -->
+                            <a href="@Url.Action("AvailableRooms", "SearchHotel", new { hotelId = hotel.HotelID, fromDate = TempData["FromDate"], toDate = TempData["ToDate"], numberOfGuests = ViewBag.numberOfGuests, })">
+                                <article class="product__item">
+                                    <div class="product__row">
+                                        <img src="@hotel.Image1"
+                                             alt=""
+                                             class="product__thumb" />
+                                        <div>
+                                            <h3 class="product__heading product__heading--hover">
+                                                @hotel.HotelName
+
+                                            </h3>
+                                            <p class="product__address">
+                                                @hotel.Address
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="product__sub-info">
+                                        <div class="product-card__rate product__rate">
+                                            <div class="product-card__rate-eval product__rate-eval">
+                                                <span>9.5</span>
+                                            </div>
+                                            <div>
+                                                <p class="product-card__rate-desc product__rate-desc">
+                                                    Xuất sắc
+                                                </p>
+                                                <span class="product-card__rate-reviews product__rate-reviews">
+                                                    10 đánh giá
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="product__price">
+                                            <p class="product__desc">
+                                                1 đêm, 2 người lớn
+                                            </p>
+
+                                            <p class="product__desc">
+                                                Đã bao gồm khuyến mãi
+                                            </p>
+
+                                            <button class="btn-custom product__btn">
+                                                Xem chỗ trống
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </a>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </section>
+    </div>
+</main>
+

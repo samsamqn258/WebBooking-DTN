@@ -82,7 +82,7 @@ namespace WebBooking.Controllers.Guest
             // Lưu phiếu đặt phòng vào database
             await _bookingIRepository.AddAsync(booking);
 
-            return RedirectToAction("Index", "Guest");
+            return RedirectToAction("ListYourBookingForm", "CreateBooking");
         }
         public async Task<IActionResult> ListYourBookingForm()
         {

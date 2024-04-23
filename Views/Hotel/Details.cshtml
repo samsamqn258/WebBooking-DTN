@@ -1,0 +1,143 @@
+﻿@model WebBooking.Models.Hotel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-hotelOwner.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f7f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: slide-in-bottom 0.5s ease;
+        }
+
+
+        .slide-in-bottom {
+            from
+
+        {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        }
+
+        h4 {
+            color: #007bff; /* Màu xanh nổi bật cho tiêu đề */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .details-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .details-section dl {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+            }
+
+            .details-section dt, .details-section dd {
+                flex: 0 0 50%;
+                padding: 10px;
+                box-sizing: border-box;
+                font-size: 16px;
+                color: #555; /* Màu xám cho các mục tiêu đề */
+            }
+
+            .details-section dt {
+                font-weight: bold;
+            }
+
+            .details-section img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 10px auto;
+                border-radius: 5px;
+            }
+
+        .action-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .action-links a {
+                color: #007bff;
+                text-decoration: none;
+                font-weight: bold;
+                margin: 0 10px;
+                padding: 8px 20px;
+                border: 2px solid #007bff;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+                .action-links a:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                }
+    </style>
+</head>
+<body>
+    <main class="page-hotel">
+        <div class="container">
+            <h4>Thông tin chi tiết Khách Sạn</h4>
+            <div class="details-section">
+                <dl>
+                    <dt style="color: #ff8800;">Tên Khách Sạn</dt> <!-- Màu cam cho tiêu đề -->
+                    <dd>@Model.HotelName</dd>
+                    <dt style="color: #ff8800;">Địa Chỉ</dt>
+                    <dd>@Model.Address</dd>
+                    <dt style="color: #ff8800;">Số Điện Thoại</dt>
+                    <dd>@Model.PhoneNumber</dd>
+                    <dt style="color: #ff8800;">Hình Ảnh</dt>
+                    <dd><img src="@Model.Image1" alt="Hình ảnh 1" /></dd>
+                    <dd><img src="@Model.Image2" alt="Hình ảnh 2" /></dd>
+                    <dd><img src="@Model.Image3" alt="Hình ảnh 3" /></dd>
+                    <dt style="color: #ff8800;">Trạng Thái Hoạt Động</dt>
+                    <dd>@Model.IsActive</dd>
+                    <dt style="color: #ff8800;">Loại Khách Sạn</dt>
+                    <dd>@Model.HotelType.TypeName</dd>
+                    <dt style="color: #ff8800;">Khu Vực</dt>
+                    <dd>@Model.Area.AreaName</dd>
+                </dl>
+            </div>
+            <div class="action-links">
+                <a href="@Url.Action("Edit", "Hotel", new {hotelId = Model.HotelID})">Chỉnh sửa</a>
+                <a asp-action="Index">Quay lại danh sách</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
