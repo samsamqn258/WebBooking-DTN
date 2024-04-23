@@ -20,29 +20,27 @@ Task Admin:
 -	Hiện số lượng thông báo các khách sạn đang chờ duyệt bằng chuông bên Admin
 Task User:
 -	Chỉnh sửa ảnh của khách hàng trong mục thông tin của khách hàng như bên hình bên dưới:
- 
 -	Khi hủy phòng hiện Modal xác nhận lí do hủy phòng sau đó xác nhận hủy ( lí do hủy chọn theo checkbox là 6 lí do)
--      Sửa giao diện của Available Room: là cái khách sạn hiển thị đầu tiên như booking sau đó xuongs chữ      phòng trống cái tìm kiếm rồi cái danh sách phòng.
+-      Sửa giao diện của Available Room: là cái khách sạn hiển thị đầu tiên như booking sau đó xuongs chữ phòng trống cái tìm kiếm rồi cái danh sách phòng.
 -       Sửa lại modal khi bấm đặt phòng: hiện thông tin chi tiết như hình ở desktop,
 -       Hiển thị modal khi hủy phòng bạn có chắc chắn muốn hủy không
 -       Danh Sách Khách Sạn Ưa Thích chức năng xóa
 -       Thêm Các điểm đến được chúng tôi ưa thích trong index
- 
 -       Thêm các nút slide trên index
 -       Làm giao diện hiển thị thông báo khi chưa có phòng đặt
 -       Mục thay đổi mật khẩu
--       Thêm nút chọn ngôn ngữ trên navbar là  logo  
+-       Thêm nút chọn ngôn ngữ trên navbar là logo  
 -  Thêm mục hỗ trợ khách hàng trên navbar  
-Task Filter: 
+Task Filter:
 -	Xử lý lọc theo checkbox bên danh sách khách sạn và điểm số khi người dùng checkbox
 -	Khi người dùng bỏ check hiển thị lại danh sách như ban đầu.
-Task API: 
+Task API:
 -	Xử lý google map ( xác định vị trí hiện tại của người dùng đến vị trí của khách sạn)
 -	Xử lý dịch văn bản theo yêu cầu của người dùng.
 Task Toast:
 -	Hiển thị các thông báo bằng toast sử dụng thư viện bên trong Toast, hiển thị với các thông báo sai ở trên và các thông báo thành công của tất cả các thành phần có liên quan đến tính đúng và sai.
 Task Booking:
--	Đặt thời gian cố định checkInDate trễ hơn checkOutDate mặc định là ( 14:00 -> 12:00).
+-	Đặt thời gian cố định checkInDate trễ hơn checkOutDate mặc định là (14:00 -> 12:00).
 Task HotelOwner: 
 -	Hiển thị thông báo số lượng trên chuông của hotelOwner là phiếu đặt phòng.
 Task Register:
