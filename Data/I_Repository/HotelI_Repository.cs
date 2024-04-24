@@ -14,6 +14,7 @@ namespace WebBooking.Data.I_Repository
         Task<IEnumerable<Hotel>> GetListHotelOwner(int hotelOwnerID);
         Task <Hotel> GetValueHotel (int hotelId);
         Task<Hotel> FindHotel(int hotelId);
+
         Task<IEnumerable<Hotel>> ListHotelFamous();
         Task<IEnumerable<Hotel>> ListHotelInArea(int AreaId);
         Task<IEnumerable<Hotel>> ListHoteltype(int TypeId);

@@ -8,5 +8,6 @@ namespace WebBooking.Data.I_Repository
         Task UpdateAsync(Payment payment);
         Task<IEnumerable<Payment>> GetAllByHotelOwnerIdAsync(int hotelOwnerId);
         Task<IEnumerable<Payment>> GetAllByGuestIdAsync(int guestId);
+        Task<Payment> GetByIdAsync(int PaymentId);
     }
 }

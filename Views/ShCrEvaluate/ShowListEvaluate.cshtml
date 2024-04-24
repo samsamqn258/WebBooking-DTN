@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WebBooking.Models.Evaluate>
+
+@{
+    ViewData["Title"] = "ShowListEvaluate";
+    Layout = null;
+}
+
+@if (Model.Any())
+{
+    <style>
+        .comment-frame {
+            width: 33%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            float: left;
+            box-sizing: border-box;
+        }
+    </style>
+
+    <h1>ShowListEvaluate</h1>
+
+    @foreach (var item in Model)
+    {
+        <div class="comment-frame">
+            <h3>@Html.DisplayFor(modelItem => item.Payment.Booking.User.UserName)</h3>
+            <p><strong>Time:</strong> @Html.DisplayFor(modelItem => item.EvaluateTime)</p>
+            <p><strong>Score:</strong> @Html.DisplayFor(modelItem => item.Score)</p>
+            <p><strong>Comment:</strong> @Html.DisplayFor(modelItem => item.Comment)</p>
+        </div>
+    }
+
+    <div style="clear: both;"></div> <!-- Clear floating elements -->
+}
+else
+{
+    <p>Khách sạn hiện chưa có đánh giá nào.</p>
+}

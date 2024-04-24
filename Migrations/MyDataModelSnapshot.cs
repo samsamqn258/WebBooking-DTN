@@ -187,7 +187,7 @@ namespace WebBooking.Migrations
                     b.Property<int>("AreaID")
                         .HasColumnType("int");
 
-                    b.Property<double>("AverageScore")
+                    b.Property<double?>("AverageScore")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
