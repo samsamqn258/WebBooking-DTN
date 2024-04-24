@@ -166,7 +166,10 @@
                     }
                 </tbody>
             </table>
-            <a href="@Url.Action("Index", "KhachSan", new { khachsanId = ViewBag.KhachSanId })" class="back-to-list btn btn-secondary">Back to List</a>
+            @* <a href="@Url.Action("Index", "KhachSan", new { khachsanId = ViewBag.KhachSanId })" class="back-to-list btn btn-secondary">Back to List</a> *@
+            <div class="d-flex justify-content-end mt-4">
+                <a href="@Url.Action("Index", "HotelOwner")" class="btn btn-primary">Back To List</a>
+            </div>
         </div>
     </main>
 </body>

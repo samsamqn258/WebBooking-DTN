@@ -18,7 +18,7 @@ namespace WebBooking.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<CancelBooking> CancelBookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<Envaluate> Envaluates { get; set; }
+        public DbSet<Evaluate> Evaluates { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

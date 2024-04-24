@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebBooking.Models
 {
-    public class Envaluate
+    public class Evaluate
     {
         [Key]
-        public int EnvaluateID { get; set; }
+        public int EvaluateID { get; set; }
         public int PaymentID { get; set; }
         public string? Comment { get; set; }
         public int? Score { get; set; }
-        public DateTime EnvaluateTime {  get; set; }
+        public DateTime EvaluateTime {  get; set; }
         public string? Image1 { get; set; }
         public string? Image2 { get; set; }
         [ForeignKey("PaymentID")]
