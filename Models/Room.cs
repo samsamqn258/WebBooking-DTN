@@ -9,7 +9,6 @@ namespace WebBooking.Models
 
         public int RoomID { get; set; }
         public string? RoomNumber { get; set; }
- 
         public double? PricePerNight { get; set; }
         public string? Amenities { get; set; }
         public string? Image1 { get; set; }
@@ -20,10 +19,8 @@ namespace WebBooking.Models
         public int HotelID { get; set; }
         public int TypeID { get; set; }
         [ForeignKey("HotelID")]
-
         public Hotel? Hotel { get; set; }
         [ForeignKey("TypeID")]
-
         public RoomType? RoomType { get; set; }
 
     }
