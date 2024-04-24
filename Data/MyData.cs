@@ -12,14 +12,13 @@ namespace WebBooking.Data
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<FavoriteHotel> FavoriteHotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<CancelBooking> CancelBookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
-
+        public DbSet<Envaluate> Envaluates { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

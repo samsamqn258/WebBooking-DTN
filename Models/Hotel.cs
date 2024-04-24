@@ -12,12 +12,11 @@ namespace WebBooking.Models
         public string? PhoneNumber { get; set; }
         public string? Image1 { get; set; }
         public string? Image2 { get; set; }
-
         public string? Image3 { get; set; }
-
         public string? Description { get; set; }
         public bool IsActive { get; set; }
         public bool IsApproved { get; set; }
+        public double AverageScore {  get; set; } 
         public int TypeID { get; set; }
         public int AreaID { get; set; }
         public int UserID { get; set; }
