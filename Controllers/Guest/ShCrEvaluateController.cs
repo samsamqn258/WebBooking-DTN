@@ -19,13 +19,8 @@ namespace WebBooking.Controllers.Guest
         {
             return View();
         }
-<<<<<<< HEAD
            private async Task<string> SaveImage(IFormFile image)
             {
-=======
-        private async Task<string> SaveImage(IFormFile image)
-        {
->>>>>>> 05caec1 (updateDB)
             var fileName = Path.GetFileName(image.FileName);
             var filePath = Path.Combine("wwwroot/img", fileName);
 
@@ -35,11 +30,7 @@ namespace WebBooking.Controllers.Guest
             }
 
             return "/img/" + fileName;
-<<<<<<< HEAD
             }
-=======
-        }
->>>>>>> 05caec1 (updateDB)
         public async Task<IActionResult> CreateEvaluate()
         {
             return View();
@@ -49,7 +40,6 @@ namespace WebBooking.Controllers.Guest
         public async Task<IActionResult> CreateEvaluate(int PaymentID, [Bind("Comment,Score,Image1,Image2")] Evaluate evaluate, IFormFile image1, IFormFile image2)
         {
             var FindBill = await _paymentIRepository.GetByIdAsync(PaymentID);
-<<<<<<< HEAD
             if(FindBill == null)
             {
                 ModelState.Remove("PaymentID"); 
@@ -57,15 +47,6 @@ namespace WebBooking.Controllers.Guest
                 ModelState.Remove("evaluate.Score"); 
                 ModelState.Remove("evaluate.Image1"); 
                 ModelState.Remove("evaluate.Image2"); 
-=======
-            if (FindBill == null)
-            {
-                ModelState.Remove("PaymentID");
-                ModelState.Remove("evaluate.Comment");
-                ModelState.Remove("evaluate.Score");
-                ModelState.Remove("evaluate.Image1");
-                ModelState.Remove("evaluate.Image2");
->>>>>>> 05caec1 (updateDB)
 
                 ViewBag.NoBill = "Mã hóa đơn không tồn tại";
                 return View();

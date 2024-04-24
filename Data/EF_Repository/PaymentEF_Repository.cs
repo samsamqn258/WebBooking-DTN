@@ -40,16 +40,11 @@ namespace WebBooking.Data.EF_Repository
             return await _myData.Payments
                             .Where(ptt => ptt.Booking.UserID == guestId).Include(ptt => ptt.Booking).ThenInclude(ptt => ptt.Room).ThenInclude(ptt=>ptt.Hotel).ToListAsync();
         }
-<<<<<<< HEAD
-        public async Task<Payment> GetByIdAsync(int PaymentId)
-        {
-            return  _myData.Payments.FirstOrDefault(p => p.PaymentID == PaymentId);
-=======
+
 
         public async Task<Payment> GetByIdAsync(int PaymentId)
         {
             return _myData.Payments.FirstOrDefault(p => p.PaymentID == PaymentId);
->>>>>>> 05caec1 (updateDB)
         }
     }
 }
