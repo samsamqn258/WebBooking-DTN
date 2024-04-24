@@ -1,0 +1,221 @@
+﻿@model WebBooking.Models.Evaluate
+
+@{
+    ViewData["Title"] = "Create Evaluate";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Evaluate</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            color: #343a40;
+        }
+
+        .form-control {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-number {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+            .btn-number:hover {
+                background-color: #0056b3;
+            }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+            .btn-primary:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+
+        .text-danger {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Create Evaluate</h1>
+
+                        @if (ViewBag.NoBill != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewBag.NoBill
+                            </div>
+                        }
+
+                        <form asp-action="CreateEvaluate" method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="PaymentID" class="control-label">PaymentId</label>
+                                <input asp-for="PaymentID" class="form-control" />
+                                <span asp-validation-for="PaymentID" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Comment" class="control-label">Bình luận</label>
+                                <input asp-for="Comment" class="form-control" />
+                                <span asp-validation-for="Comment" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Score" class="control-label">số điểm từ 1-10</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="Score">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </button>
+                                    </span>
+                                    <input asp-for="Score" class="form-control input-number" min="1" max="10" value="1" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="Score">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                                <span asp-validation-for="Score" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Image1" class="control-label">Hình ảnh 1</label>
+                                <input type="file" asp-for="Image1" id="image1" class="form-control" onchange="previewImage(event, 'preview1')" />
+                                <img id="preview1" src="#" alt="Hình ảnh" style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Image2" class="control-label">Hình ảnh 2</label>
+                                <input type="file" asp-for="Image2" id="image2" class="form-control" onchange="previewImage(event, 'preview2')" />
+                                <img id="preview2" src="#" alt="Hình ảnh" style="display: none; max-width: 100px; max-height: 100px; margin-top: 10px;" />
+                            </div>
+
+                            <div class="form-group text-center">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function previewImage(event, imgId) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById(imgId);
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        // JavaScript code here
+        $('.btn-number').click(function (e) {
+            e.preventDefault();
+
+            var fieldName = $(this).attr('data-field');
+            var type = $(this).attr('data-type');
+            var input = $("input[name='" + fieldName + "']");
+            var currentVal = parseInt(input.val());
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
+                    if (currentVal > input.attr('min')) {
+                        input.val(currentVal - 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('min')) {
+                        $(this).attr('disabled', true);
+                    }
+                } else if (type == 'plus') {
+                    if (currentVal < input.attr('max')) {
+                        input.val(currentVal + 1).change();
+                    }
+                    if (parseInt(input.val()) == input.attr('max')) {
+                        $(this).attr('disabled', true);
+                    }
+                }
+            } else {
+                input.val(1);
+            }
+        });
+
+        $('.input-number').focusin(function () {
+            $(this).data('oldValue', $(this).val());
+        });
+
+        $('.input-number').change(function () {
+            var minValue = parseInt($(this).attr('min'));
+            var maxValue = parseInt($(this).attr('max'));
+            var valueCurrent = parseInt($(this).val());
+            var name = $(this).attr('name');
+            if (valueCurrent >= minValue) {
+                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the minimum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+            if (valueCurrent <= maxValue) {
+                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the maximum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+        });
+
+        $(".input-number").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A, Command+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -14,7 +14,6 @@ namespace WebBooking.Models
         public string? Image1 { get; set; }
         public string? Image2 { get; set; }
         [ForeignKey("PaymentID")]
-
         public Payment? Payment { get; set; }
 
 

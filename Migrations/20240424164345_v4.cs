@@ -5,7 +5,7 @@
 namespace WebBooking.Migrations
 {
     /// <inheritdoc />
-    public partial class Nam : Migration
+    public partial class v4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

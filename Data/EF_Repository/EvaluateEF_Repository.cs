@@ -16,13 +16,22 @@ namespace WebBooking.Data.EF_Repository
         {
             var ListEvaluate = await _myData.Evaluates
                 .Where(e => e.Payment.Booking.Room.HotelID == HotelId)
+                .Include(e => e.Payment) 
+                .ThenInclude(p => p.Booking) 
+                .ThenInclude(b => b.User) 
                 .ToListAsync();
+
             return ListEvaluate;
         }
+
         public async Task AddAsync(Evaluate evaluate)
         {
             _myData.Evaluates.Add(evaluate);
             await _myData.SaveChangesAsync();
+        }
+        public async Task <Evaluate> GetByIdAsync(int PaymentId)
+        {
+            return _myData.Evaluates.FirstOrDefault(p => p.PaymentID == PaymentId);
         }
     }
 }

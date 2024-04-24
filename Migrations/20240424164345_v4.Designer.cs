@@ -12,8 +12,8 @@ using WebBooking.Data;
 namespace WebBooking.Migrations
 {
     [DbContext(typeof(MyData))]
-    [Migration("20240424080057_Nam")]
-    partial class Nam
+    [Migration("20240424164345_v4")]
+    partial class v4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,7 +190,7 @@ namespace WebBooking.Migrations
                     b.Property<int>("AreaID")
                         .HasColumnType("int");
 
-                    b.Property<double>("AverageScore")
+                    b.Property<double?>("AverageScore")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
