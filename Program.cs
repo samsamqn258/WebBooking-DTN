@@ -19,6 +19,12 @@ builder.Services.AddScoped<AreaI_Repository, AreaEF_Repository>();
 builder.Services.AddScoped<HotelTypeI_Repository, HotelTypeEF_Repository>();
 builder.Services.AddScoped<RoomTypeI_Repository, RoomTypeEF_Repository>();
 builder.Services.AddScoped<EvaluateI_Repository, EvaluateEF_Repository>();
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 05caec1 (updateDB)
 
 builder.Services.AddControllersWithViews();
 

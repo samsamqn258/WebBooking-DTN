@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebBooking.Data;
 
@@ -11,9 +12,11 @@ using WebBooking.Data;
 namespace WebBooking.Migrations
 {
     [DbContext(typeof(MyData))]
-    partial class MyDataModelSnapshot : ModelSnapshot
+    [Migration("20240424164238_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,15 +128,6 @@ namespace WebBooking.Migrations
                     b.ToTable("CancelBookings");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("WebBooking.Models.Evaluate", b =>
-                {
-                    b.Property<int>("EvaluateID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EvaluateID"));
-=======
             modelBuilder.Entity("WebBooking.Models.Envaluate", b =>
                 {
                     b.Property<int>("EnvaluateID")
@@ -141,16 +135,11 @@ namespace WebBooking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnvaluateID"));
->>>>>>> 05caec1 (updateDB)
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-                    b.Property<DateTime>("EvaluateTime")
-=======
                     b.Property<DateTime>("EnvaluateTime")
->>>>>>> 05caec1 (updateDB)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image1")
@@ -165,19 +154,11 @@ namespace WebBooking.Migrations
                     b.Property<int?>("Score")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.HasKey("EvaluateID");
-
-                    b.HasIndex("PaymentID");
-
-                    b.ToTable("Evaluates");
-=======
                     b.HasKey("EnvaluateID");
 
                     b.HasIndex("PaymentID");
 
                     b.ToTable("Envaluates");
->>>>>>> 05caec1 (updateDB)
                 });
 
             modelBuilder.Entity("WebBooking.Models.FavoriteHotel", b =>
@@ -209,11 +190,7 @@ namespace WebBooking.Migrations
                     b.Property<int>("AreaID")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.Property<double?>("AverageScore")
-=======
                     b.Property<double>("AverageScore")
->>>>>>> 05caec1 (updateDB)
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
@@ -448,11 +425,7 @@ namespace WebBooking.Migrations
                     b.Navigation("Booking");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("WebBooking.Models.Evaluate", b =>
-=======
             modelBuilder.Entity("WebBooking.Models.Envaluate", b =>
->>>>>>> 05caec1 (updateDB)
                 {
                     b.HasOne("WebBooking.Models.Payment", "Payment")
                         .WithMany()
