@@ -18,10 +18,7 @@ builder.Services.AddScoped<PaymentI_Repository, PaymentEF_Repository>();
 builder.Services.AddScoped<AreaI_Repository, AreaEF_Repository>();
 builder.Services.AddScoped<HotelTypeI_Repository, HotelTypeEF_Repository>();
 builder.Services.AddScoped<RoomTypeI_Repository, RoomTypeEF_Repository>();
-builder.Services.AddScoped<EnvaluateI_Repository, EnvaluateEF_Repository>();
-
-
-
+builder.Services.AddScoped<EvaluateI_Repository, EvaluateEF_Repository>();
 
 builder.Services.AddControllersWithViews();
 
